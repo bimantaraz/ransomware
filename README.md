@@ -15,7 +15,7 @@ This project contains two main scripts: `ransom.py` and `decrypt.py`, demonstrat
 
 ## Requirements
 - Python 3.x
-- Python module `cryptography`
+- Python module `cryptography, Fernet`
 - Python module `requests` for sending the encryption key to the Discord webhook
 
 ## Installation
@@ -28,7 +28,7 @@ This project contains two main scripts: `ransom.py` and `decrypt.py`, demonstrat
 
 2. Install dependencies:
    ```bash
-   pip install cryptography requests
+   pip install cryptography requests Fernet
    ```
 
 ## Usage
