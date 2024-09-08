@@ -33,6 +33,33 @@ This project contains two main scripts: `ransom.py` and `decrypt.py`, demonstrat
 
 ## Usage
 
+### Compile to Executable
+
+To convert the Python scripts (`ransom.py` and `decrypt.py`) into standalone executable files, follow these steps:
+
+1. Install `PyInstaller` if you haven't already:
+
+   ```bash
+   pip install pyinstaller
+   ```
+
+2. Compile `ransom.py` to an executable:
+
+   ```bash
+   pyinstaller --onefile ransom.py
+   ```
+
+   This will create a `dist` folder with the compiled `ransom.exe` file.
+
+3. Compile `decrypt.py` to an executable:
+
+   ```bash
+   pyinstaller --onefile decrypt.py
+   ```
+
+4. You can now distribute the `ransom.exe` and `decrypt.exe` files without requiring Python to be installed on the target machine.
+
+
 ### Encrypt Files
 1. Edit the `ransom.py` script and add your Discord webhook URL to the `WEBHOOK_URL` variable.
 2. Run the `ransom.py` script:
